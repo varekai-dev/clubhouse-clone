@@ -6,11 +6,11 @@ import { StepInfo } from '../../StepInfo';
 import styles from './EnterNameStep.module.scss';
 import React from 'react';
 import { MainContext } from '../../../pages';
-import { Avatar } from '../../Avatar';
 
 export const EnterNameStep = () => {
-  const { onNextStep, userData, setFieldValue } = React.useContext(MainContext);
-  const [inputValue, setInputValue] = React.useState<string>(userData.fullname);
+  const [inputValue, setInputValue] = React.useState<string>('');
+  const { onNextStep } = React.useContext(MainContext);
+
   const nextDisabled = !inputValue;
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +18,6 @@ export const EnterNameStep = () => {
   };
 
   const onClickNextStep = () => {
-    setFieldValue('fullname', inputValue);
     onNextStep();
   };
 
@@ -30,8 +29,7 @@ export const EnterNameStep = () => {
         description="People use real names on Clubhouse :) Thnx!"
       />
       <WhiteBlock className={clsx('m-auto', styles.whiteBlock)}>
-        <Avatar src={userData.avatarUrl} width="120px" height="120px" />
-        <div className="mt-30 mb-30">
+        <div className="mb-30">
           <input
             onChange={handleChangeInput}
             value={inputValue}
